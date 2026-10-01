@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Search Aggregator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="controls">
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Search products..." onkeydown="if(event.key === 'Enter') searchProducts()">
+            <button onclick="searchProducts()">Search</button>
+        </div>
+
+        <div class="filter-bar">
+            <div id="platform-checkboxes">
+                <label><input type="checkbox" value="all" checked> All</label>
+                <label><input type="checkbox" value="flipkart"> Flipkart</label>
+                <label><input type="checkbox" value="amazon"> Amazon</label>
+                <label><input type="checkbox" value="croma"> Croma</label>
+            </div>
+
+            <div class="sort-container">
+                <label for="sort-select">Sort by:</label>
+                <select id="sort-select" onchange="sortProducts()">
+                    <option value="low-to-high">Price: Low to High</option>
+                    <option value="high-to-low">Price: High to Low</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div id="results"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
