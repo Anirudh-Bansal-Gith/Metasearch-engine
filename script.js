@@ -8,7 +8,7 @@ const isLocal =
 
 const API_BASE_URL = isLocal
     ? "http://127.0.0.1:8000/search"
-    : "https://metasearch-engine.onrender.com/search";
+    : "https://metasearch-engine-1.onrender.com/search";
 
 const state = {
     currentQuery: '',
