@@ -1,6 +1,7 @@
 console.log("[INIT] App started");
 
-const API_BASE_URL = 'http://127.0.0.1:8000/search';
+const API_BASE_URL = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "http://127.0.0.1:8000/search": "https://metasearch-engine.onrender.com/search";
 
 const state = {
     currentQuery: '',
