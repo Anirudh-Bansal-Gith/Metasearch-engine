@@ -3,36 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Search Aggregator</title>
+    <title>Price Aggregator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>🛍️ Price Aggregator</h1>
+        </div>
 
-    <div class="controls">
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Search products..." onkeydown="if(event.key === 'Enter') searchProducts()">
+        <div class="search-section">
+            <input type="text" id="search" placeholder="Search products...">
             <button onclick="searchProducts()">Search</button>
         </div>
 
-        <div class="filter-bar">
-            <div id="platform-checkboxes">
-                <label><input type="checkbox" value="all" checked> All</label>
-                <label><input type="checkbox" value="flipkart"> Flipkart</label>
-                <label><input type="checkbox" value="amazon"> Amazon</label>
-                <label><input type="checkbox" value="croma"> Croma</label>
-            </div>
+        <div class="main-layout">
+            <aside class="sidebar">
+                <div class="filter-column">
+                    <h3>Platforms</h3>
+                    <div id="platform-checkboxes" class="checkbox-group">
+                        <label><input type="checkbox" value="flipkart" checked onchange="applyFilters()"> Flipkart</label>
+                        <label><input type="checkbox" value="amazon" checked onchange="applyFilters()"> Amazon</label>
+                        <label><input type="checkbox" value="croma" checked onchange="applyFilters()"> Croma</label>
+                        <label><input type="checkbox" value="jiomart" checked onchange="applyFilters()"> JioMart</label>
+                    </div>
+                </div>
 
-            <div class="sort-container">
-                <label for="sort-select">Sort by:</label>
-                <select id="sort-select" onchange="sortProducts()">
-                    <option value="low-to-high">Price: Low to High</option>
-                    <option value="high-to-low">Price: High to Low</option>
-                </select>
-            </div>
+                <div class="filter-column">
+                    <h3>Brands</h3>
+                    <div id="brand-checkboxes" class="checkbox-group"></div>
+                </div>
+
+                <div class="filter-column">
+                    <h3>Sort</h3>
+                    <select id="sort-select" onchange="applyFilters()">
+                        <option value="low-to-high">Price: Low to High</option>
+                        <option value="high-to-low">Price: High to Low</option>
+                    </select>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                <div id="results" class="results-grid"></div>
+            </main>
         </div>
     </div>
-
-    <div id="results"></div>
 
     <script src="script.js"></script>
 </body>

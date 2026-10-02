@@ -6,6 +6,7 @@ from amazon import Amazon
 from base_platform import Platform
 from flipkart import Flipkart
 from croma import Croma
+from jiomart import JioMart
 from manager import get_html
 
 app = FastAPI()
@@ -17,29 +18,38 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-PLATFORM_MAP = {"amazon": Amazon, "flipkart": Flipkart}
-
+PLATFORM_MAP_PLAYWRIGHT = {"amazon": Amazon, "flipkart": Flipkart}
+PLATFORM_MAP_REQUEST = {"croma":Croma, "jiomart":JioMart}
 @app.get("/search")
 async def search(query: str, platforms: Optional[List[str]] = Query(default=["all"])) :
     selected = [p.lower() for p in platforms]
 
     results = []
-    if "all" in selected or "croma" in selected:
-        croma = Croma()
-        croma.get_query(query)
-        results.extend(croma.get_results())
+    request_platforms = []
+    playwright_platforms = []   
+    if "all" in selected :
+        request_platforms = [class_obj() for class_obj in PLATFORM_MAP_REQUEST.values()]
+    else:
+        request_platforms = [PLATFORM_MAP_REQUEST[value]() for value in selected if value in PLATFORM_MAP_REQUEST]
+    
         
     if not selected or "all" in selected:
-        playwright_platforms = [class_obj() for class_obj in PLATFORM_MAP.values()]
+        playwright_platforms = [class_obj() for class_obj in PLATFORM_MAP_PLAYWRIGHT.values()]
     else:
-        playwright_platforms = [PLATFORM_MAP[value]() for value in selected if value in PLATFORM_MAP]
+        playwright_platforms = [PLATFORM_MAP_PLAYWRIGHT[value]() for value in selected if value in PLATFORM_MAP_PLAYWRIGHT]
+
+    if request_platforms:
+        for platform in request_platforms:
+            platform.get_query(query)
+            results.extend(platform.get_results())
+
 
     if playwright_platforms:
         await get_html(query, playwright_platforms)
         
         for platform in playwright_platforms:
             results.extend(platform.get_results())
-
+    
     return results
 
     

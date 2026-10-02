@@ -8,7 +8,7 @@ class Croma(Platform):
     
     def get_query(self, prompt):
         clean_prompt = prompt.replace(" ", "%20")
-        self.query = f"https://api.croma.com/searchservices/v1/search?currentPage=0&query={clean_prompt}%3Arelevance&fields=FULL&channel=WEB&channelCode=400049&spellOpt=DEFAULT"
+        self.query = f"https://api.croma.com/searchservices/v1/search?currentPage=0&query={clean_prompt}%3Arelevance&fields=FULL&channel=WEB&channelCode=160047&spellOpt=DEFAULT"
         
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
